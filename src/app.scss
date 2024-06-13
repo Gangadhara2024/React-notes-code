@@ -1,4 +1,19 @@
-.app{
-    border: 1px solid orange;
-    background-color: red;
+.app {
+  border: 1px solid orange;
+  background-color: red;
+}
+.navbar {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  background-color: aliceblue;
+  .link {
+    text-decoration: none;
+    color: #333333;
+    font-size: 1.1rem;
+  }
+}
+.active-link {
+  color: rgb(134, 174, 163);
+  font-weight: 700;
 }
