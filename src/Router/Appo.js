@@ -39,7 +39,7 @@ const Layout = () => {
           </Link>
         </div>
       </nav> */}
-      {/* <nav>
+      <nav>
         <NavLink
           to="/user/home"
           className={({ isActive }) => (isActive ? "active-link" : "link")}
@@ -53,14 +53,14 @@ const Layout = () => {
         >
           about
         </NavLink>
-      </nav> */}
-      {/* <Outlet /> */}
+      </nav>
+      <Outlet />
     </div>
   );
 };
 export const Appo = () => {
   return (
-    <div >
+    <div>
       {/* <BrowserRouter>
         <Routes>
           <Route path="*" element={<p>404 page not found</p>} />

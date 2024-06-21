@@ -2,6 +2,7 @@ import React from "react";
 import "../app.scss";
 import { NavLink } from "react-router-dom";
 
+// const className = ({ isActive }) => (isActive ? "active-link" : "");
 const className = ({ isActive }) => `link ${isActive ? "active-link" : ""}`;
 
 export const Navbar = () => {

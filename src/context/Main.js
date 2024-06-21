@@ -1,8 +1,6 @@
-import { memo, useMemo, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export const Main = () => {
-  const [toggle, setToggle] = useState(true);
   return (
     <div className="box">
       <BrowserRouter>

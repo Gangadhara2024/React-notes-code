@@ -672,7 +672,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //   );
 // });
 // export const Main = () => {
-//   console.log("memo-exapmple rendered");
+//   console.log("memo-example rendered");
 //   const [toggle, setToggle] = useState(true);
 //   return (
 //     <div className="box">
@@ -683,8 +683,8 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //     </div>
 //   );
 // };
-// in this case without any change in value of A component re-renders, to avoid that we use memo.
-// when there is prop change then A component renders otherwise A component will not re-render.
+// in this case without any change in value of A, component re-renders, to avoid that we use memo.
+// when there is prop change, then A component renders otherwise, A component will not re-render.
 
 //               #### ROUTING
 
