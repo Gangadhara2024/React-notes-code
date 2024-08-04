@@ -3,7 +3,7 @@ import "../app.scss";
 import { NavLink } from "react-router-dom";
 
 // const className = ({ isActive }) => (isActive ? "active-link" : "");
-const className = ({ isActive }) => `link ${isActive ? "active-link" : ""}`;
+const className = ({ isActive }) => `link ${isActive ? "active-link" : "null"}`;
 
 export const Navbar = () => {
   return (

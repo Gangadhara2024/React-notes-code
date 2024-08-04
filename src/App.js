@@ -5,12 +5,16 @@ import { useEffect, useRef, useState } from "react";
 import { Appo } from "./Router/Appo";
 // import { Main } from "./context/Main";
 import { Main } from "./Dummy";
+import { BookMyShow } from "./Router/BookMyShow";
 
 export const App = () => {
   return (
     <div>
-      <Appo />
+      {/* <Appo /> */}
       {/* <Main/> */}
+      {/* <BookMyShow /> */}
+      <Fetch />
+      {/* <AxiosExample /> */}
     </div>
   );
 };

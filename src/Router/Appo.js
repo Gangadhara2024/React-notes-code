@@ -71,7 +71,7 @@ export const Appo = () => {
         </Routes>
       </BrowserRouter> */}
 
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Routes>
           <Route path="user" element={<Layout />}>
             <Route path="home" element={<Home />} />
@@ -79,7 +79,7 @@ export const Appo = () => {
           </Route>
           <Route path="*" element={<h2>error screen</h2>} />
         </Routes>
-      </BrowserRouter> */}
+      </BrowserRouter>
       <BookMyShow />
     </div>
   );

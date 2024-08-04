@@ -1,13 +1,11 @@
 // ES6 => MODULES: we can reuse the variables present inside one module(js file) into another module(js file).
 // <script type="module" src="./num.js"></script> => if type="module" is specified then only we should use exports and imports.
 
-import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
-
 // In a module => we can export and import javascript variables.
 // we export variables to use them anywhere.
 
 //  1. Named export.
-//  we shouls export named exports using {v1, v2, v3} from './module2.js'
+//  we should export named exports using {v1, v2, v3} from './module2.js'
 //  we can have multiple name exports in place of v1, v2, v3.
 
 //  2. Default export.
@@ -26,12 +24,13 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 
 // const bold = document.createElement("b");
 // bold.className = "app";
-// bold.innerText = "hello";     // bold is DOM element.
+// bold.innerText = "react";     // bold is DOM element.
 
 // const app = document.getElementById("root");
 // app.appendChild(bold);
 
 // React elements: ==> these are light weight representation of actual DOM elements.
+// (means React elements have only few properties of DOM elements, but not all properties).
 
 // createElement(type, props, children);
 // const bold1 = React.createElement(
@@ -40,10 +39,10 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //   "gangadhar"
 // );
 // const container = ReactDOM.createRoot(root); // container is wrapper element which we can render any React elements.
-// container.render(bold1);   // render(Reactelement)
+// container.render(bold1);   // render(Reactelement) => render takes only react elements.
 
 // #### JSX
-// XML: <tag> code </tag> is XML structure.
+// XML: (<tag> code </tag>) is XML structure.
 // JSX:  XML like code written inside javascript file is called XML or (JSX) javacsript XML.
 
 // const para = (
@@ -72,20 +71,43 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 
 /*
    RDOM : virtual DOM means HTML elements.
-   VDOM : Real DOM (have memory).
+   VDOM : Real DOM (have memory). they are light weight representation of HTML elements.
 
    1. In react all react elements will be in Tree structure( virtual DOM => VDOM1)
    2. when there is state(data) change, react will re-construct another virtual DOM tree with updated state(VDOM2).
    3. React compares the old tree (VDOM1) and new tree (VDOM2), and figures out differences this algorithm is called as diffing.
-   4. after finding the differences, updated virtual DOM (VDOM2) will be made in sync with RDOM, this is called Reconciliation. 
+   4. after finding the differences b/w VDOM2 and RDOM, updated virtual DOM (VDOM2) will be made in sync with RDOM, this is called Reconciliation.
+   5. after Reconciliation process, VDOM1 gets deleted from memory and VDOM2 will be new VDOM1. 
 */
+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// let name = "hello",
+//   age = 26;
+
+// const incage = () => {
+//   age++;
+//   console.log(age);
+//   root.render(getUI());
+// };
+// function getUI() {
+//   return (
+//     <div>
+//       <p>{name} </p>
+//       <p>{age}</p>
+//       <button onClick={incage}>increment</button>
+//     </div>
+//   );
+// }
+// root.render(getUI());
+// here we are updating age by clicking button, so in memeory age is updated but not in UI.
+// so to update in UI, we should render the getUI function, so to render we used render method in incage function to get UI updated.
 
 //                       #### COMPONENTS.
 // 1. Functional components.
 // 2. Class components.
 
 //  Functional components: => is Javascript function which return JSX and starts with capital letter.
-
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // const User = ({name, age}) => {
@@ -100,7 +122,6 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 // root.render(<User/>);
 
 //  Class components:
-
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // Counter is class component.
@@ -110,6 +131,33 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //     }
 //   }
 //   root.render(<Counter />);
+
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// class Counter extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = { count: 10 };
+//     console.log(this.state);
+//   }
+//   render() {
+//     const inc = () => {
+//       this.setState({ count: this.state.count + 1 });
+//       console.log(this.state.count);
+//     };
+//     return (
+//       <div>
+//         <h1>class Component</h1>
+//         <h3>count: {this.state.count} </h3>
+//         <button onClick={inc}>increment</button>
+//       </div>
+//     );
+//   }
+// }
+// root.render(<Counter name="react" age={26} />);
+// we should not directly change state value like this ==> this.state.count += 10;
+// here setState ==> takes count value and gives to react and after that re-render of component happens.
+// when there is change in state, react will re-render the component. 
 
 //                 #### REACT LIFE CYCLE METHODS
 /*
@@ -131,7 +179,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //   }
 // }
 // export default App;
-// During Mounting phase constructor and Render methods excutes. after component mounting componentDidMount() will excute.
+// During Mounting phase (constructor and Render) methods excutes. after component mounting componentDidMount() will excute.
 
 // UPdating phase: updating component can be done either by changing state of component / passing props into component.
 
@@ -231,7 +279,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //     </div>
 //   );
 // };
-// onclicking increment btn "findsum fn" will excute only once after that it will not excute.
+// onclicking increment btn "findsum" fn will excute only once after that it will not excute.
 
 //                           *****  NON-PRIMITIVES as state values
 
@@ -254,7 +302,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //     );
 //   };
 
-// because of memory reference of object, the age is incremented in memeory but UI is not updated so to get UI update we pass object using spread operator{...object}, then it creates new memory then component re-renders.
+// because of memory reference of object, the age is incremented in memeory but UI is not updated, so to get UI update we pass object using spread operator{...object}, then it creates new memory then component re-renders.
 // It works same for the Arrays and Objects.
 
 //                   ***** HANDLING INPUT IN REACT ==> REACT CONTROLLED INPUTS
@@ -275,8 +323,8 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //   };
 
 //                    ***** HOW TO PASS PROPS FROM PARENT TO CHILD COMPONENT.
-// PROP-DRILLING: is sending props from one component to child/other components is PROP-DRILLING.
 
+// PROP-DRILLING: is sending props from one component to child/other components is PROP-DRILLING.
 // const Test = ({ count, updateCount }) => {
 //     const child = () => {
 //       updateCount((prev) => {
@@ -399,7 +447,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 
 /*
 // SASS ==> is pre-processor for css.
-// @import './styles.scss';                             // we can import styles from other mosule/file.
+// @import './styles.scss';                             // we can import styles from other module/file.
 
 // @mixin setitem($direction, $gap, $color) {          // here we can give ($gap:30px) if not included in include setitem.
 //   display: flex;
@@ -478,7 +526,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 
 //   if (arr.length === 2) {
 //     console.log(arr[0], arr[1]);
-//     console.log(arr[0] === arr[1]); here we get memory reference changing on component mounts, so we use useRef to get same memory reference. but by using useRef hook we can have same memory reference of obj
+//     console.log(arr[0] === arr[1]); here we get memory reference changing on component mounts, so we use useRef to get same memory reference. but by using useRef hook we can have same memory reference of obj.
 
 //     // useRef({ name: "gangadhar" }) ==> and it will return object with name as current {current: { name: "gangadhar" }}
 //     // useRef => is used to maintain single memory references, if multiple re-render of component happens.
@@ -594,7 +642,7 @@ import { BrowserRouter, NavLink, Route, Routes } from "react-router-dom";
 //   );
 // };
 
-// If 'A' component is outside provider, then useContext returns default value i.e (createContext("abcd")). if "abcd is not there then it is undefined"
+// If 'A' component is outside provider, then useContext returns default value i.e (createContext("abcd")). if "abcd" is not there then it is undefined"
 
 // const counterContext = createContext();
 
