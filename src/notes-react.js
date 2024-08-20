@@ -70,10 +70,11 @@
 // for every list items we should pass prop `KEY`.
 
 /*
-   RDOM : virtual DOM means HTML elements.
-   VDOM : Real DOM (have memory). they are light weight representation of HTML elements.
+   RDOM (Real DOM): This is the actual Document Object Model, the representation of the UI, that the browser renders on the screen. The Real DOM is slower to update because it involves interacting directly with the browser, which is why React uses the VDOM to minimize direct updates to the Real DOM.
 
-   1. In react all react elements will be in Tree structure( virtual DOM => VDOM1)
+   VDOM (Virtual DOM): This is an in-memory representation of the actual DOM. React uses the VDOM to keep track of changes in the UI. When you update the UI, React updates the VDOM first, then compares it with the previous version using a process called "reconciliation." This allows React to efficiently update only the parts of the actual DOM (Real DOM) that have changed.
+
+   1. In react, all react elements will be in Tree structure( virtual DOM => VDOM1)
    2. when there is state(data) change, react will re-construct another virtual DOM tree with updated state(VDOM2).
    3. React compares the old tree (VDOM1) and new tree (VDOM2), and figures out differences this algorithm is called as diffing.
    4. after finding the differences b/w VDOM2 and RDOM, updated virtual DOM (VDOM2) will be made in sync with RDOM, this is called Reconciliation.
@@ -100,7 +101,7 @@
 //   );
 // }
 // root.render(getUI());
-// here we are updating age by clicking button, so in memeory age is updated but not in UI.
+// here we are updating age by clicking button, so in memeory, age is updated but not in UI.
 // so to update in UI, we should render the getUI function, so to render we used render method in incage function to get UI updated.
 
 //                       #### COMPONENTS.
@@ -121,7 +122,7 @@
 
 // root.render(<User/>);
 
-//  Class components:
+// Class components:-
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // Counter is class component.
@@ -157,7 +158,7 @@
 // root.render(<Counter name="react" age={26} />);
 // we should not directly change state value like this ==> this.state.count += 10;
 // here setState ==> takes count value and gives to react and after that re-render of component happens.
-// when there is change in state, react will re-render the component. 
+// when there is change in state, react will re-render the component.
 
 //                 #### REACT LIFE CYCLE METHODS
 /*
@@ -179,35 +180,37 @@
 //   }
 // }
 // export default App;
-// During Mounting phase (constructor and Render) methods excutes. after component mounting componentDidMount() will excute.
+// During Mounting phase (constructor and Render) methods excutes. after component mounting, componentDidMount() will excute.
 
 // UPdating phase: updating component can be done either by changing state of component / passing props into component.
 
-// class App extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { count: 0 };
-//   }
-//    increment = () => {
-//      this.setState({count: this.state.count + 1})
-//   }
-//   render() {
-//     console.log("in render");
-//     return (
-//       <div>
-//         <h3>class compoenent</h3>
-//         <button onClick={this.increment}>increment</button>
-//       </div>
-//     )
-//     ;
-//   }
-//   componentDidMount() {
-//     console.log("after component gets mounted");
-//   }
-// }
-// export default App;
-// componentDidMount() method ==> gets excutes only when component is mounted.
-// render() method ==> gets excuted in Updating phase.
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 0 };
+  }
+  inc = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+  render() {
+    console.log("render");
+    return (
+      <div>
+        <h1>class Component, {this.state.count} </h1>
+        <button onClick={this.inc}>increment</button>
+      </div>
+    );
+  }
+  componentDidUpdate(prevProps, prevState) {
+    console.log(prevProps, prevState);
+  }
+  componentDidMount() {
+    console.log("after component mounted");
+  }
+}
+export default App;
+// In updating phase, render and componentDidUpdate method will execute.
+// and on clicking inc btn, for every update, component gets re-render.
 
 // Unmouting phase: component will die.
 */
@@ -228,7 +231,7 @@
 //   );
 // };
 
-// In above functional component the count is updated in memory but UI is not updated with count value. so to achieve this we use Hook called useState.
+// In above functional component the count is updated in memory, but UI is not updated with count value. so to achieve this we use Hook called useState.
 
 //                 #### HOOKS
 
@@ -255,6 +258,7 @@
 //       </div>
 //     );
 //   };
+// Here setCount() is function, that takes newState as argument and informs react about the update.
 
 // LAZY initialisation: we can pass function as argument to useState() method so that it will call the callback in first render only.
 
@@ -290,7 +294,7 @@
 //       user.age++; // #400  { name: "gangadhar", age: 26 }
 //       console.log(user);
 //       // setUser(user); // #400
-//       setUser({ ...user }); // here we get #500 memory so component get re-renderd.
+//       setUser({ ...user }); // here we get #500 memory, so component get re-renderd.
 //     };
 //     return (
 //       <div>
@@ -302,7 +306,7 @@
 //     );
 //   };
 
-// because of memory reference of object, the age is incremented in memeory but UI is not updated, so to get UI update we pass object using spread operator{...object}, then it creates new memory then component re-renders.
+// because of memory reference of object, the age is incremented in memeory but UI is not updated, so to get UI update, we pass object using spread operator{...object}, then it creates new memory then component re-renders.
 // It works same for the Arrays and Objects.
 
 //                   ***** HANDLING INPUT IN REACT ==> REACT CONTROLLED INPUTS
@@ -321,6 +325,7 @@
 //       </div>
 //     );
 //   };
+// By setting value attribute, we cannot modify value inside input, because they are controlled by react.
 
 //                    ***** HOW TO PASS PROPS FROM PARENT TO CHILD COMPONENT.
 
@@ -349,14 +354,14 @@
 //     );
 //   };
 
-// USEEFFECT HOOK
+//              #### USEEFFECT HOOK
 
 /* ==> Mounting, Updating, Unmounting can be achieved in useEffect hook also.
    ==> useEffect takes 2 arguments 
           1.callback function 2. Dependency list. 
    ==> useEffect do not return anything.
 */
-// ==> useEffect(function, []) ==> acts as componentDidMount ==> after component mounts useEffect console statement will excute.
+// ==> useEffect(function, []) ==> acts as componentDidMount ==> after component mounts, useEffect console statement will excute.
 
 // export const App = () => {
 //   const [count, setCount] = useState(10);
@@ -373,7 +378,9 @@
 //   );
 // };
 
-// ==>  useEffect(function, [a,b,c]) ==> acts as componentDidUpdate ==> if Dependency array value changes then useEffect callback gets excuted or if Dependency array value same as previous then useEffect callback will not gets excuted.
+// ==> useEffect(function, [a,b,c]) ==> acts as componentDidUpdate ==> if Dependency array value changes, then useEffect callback gets excuted.
+// If Dependency array value same as previous, then useEffect callback will not gets excuted.
+// when there is change in dependency list, then useEffect callback gets excutes.
 
 // let x = 20;
 // export const App = () => {
@@ -408,72 +415,70 @@
 //     );
 //   };
 
-// const Childapp = () => {
-//    useEffect(() => {
-//      console.log("effect");
+// const Childone = () => {
+//   useEffect(() => {
+//     console.log("inside effect");
 
-//      return function () {
-//        console.log("clean up function"); // this is called cleanup / disposer function. after unmounting cleanup function excutes.
-//      };
-//    }, []);
-
-//     () => {} this callback is called sideEffect / effect. this effect can return nothing or return function(){}.
-
-//    return (
-//      <div
-//        style={{
-//          padding: "10px",
-//          backgroundColor: "white",
-//          border: "1px solid red",
-//        }}
-//      >
-//        <h2>child app</h2>
-//      </div>
-//    );
-//  };
-//  export const App = () => {
-//    const [toggle, setToggle] = useState(true);
-
-//    return (
-//      <div>
-//        {toggle && <Childapp />}
-//        <button onClick={() => setToggle(!toggle)}>click</button>
-//      </div>
-//    );
-//  };
+//     return function () {
+//       console.log("clean up function");
+//     };
+//   }, []);
+//   return (
+//     <div style={{ padding: "10px", backgroundColor: "tomato" }}>
+//       <h2>child one</h2>
+//     </div>
+//   );
+// };
+// export const App = () => {
+//   const [toggle, setToggle] = useState(true);
+//   return (
+//     <div>
+//       <h2>parent one</h2>
+//       {toggle && <Childone />}
+//       <button onClick={() => setToggle(!toggle)}>toggle childone</button>
+//     </div>
+//   );
+// };
+// useEffect callback ==> is also called as effect/side effect.
+// useEffect callback ==> can return nothing or return function expression.
+// The returned function expression is called as "clean up / disposer function".
+// whenever child component dies(unmount), then disposer function gets executed.
 
 // navigator.geolocation.getCurrentPosition();  => this function fetches geolocation.
 // this function takes 3 callbacks / 1. success callback / 2. error callback / 3. options
 
-/*
 // SASS ==> is pre-processor for css.
-// @import './styles.scss';                             // we can import styles from other module/file.
+// @import './styles.scss' ==> we can import sass file like this.
+// In sass, we can create variables, they start with dollar($) sign, ($bgcolor: rgb(206, 148, 61)).
+// In sass, we use Mixins called as functions.
 
-// @mixin setitem($direction, $gap, $color) {          // here we can give ($gap:30px) if not included in include setitem.
+// $bgcolor: rgb(206, 148, 61);
+
+// @mixin rowItem($direction, $gap, $backgroundcolor) {
 //   display: flex;
-//   flex-direction: $direction;                       // mixin syntax
+//   flex-direction: $direction;
 //   gap: $gap;
-// }
-// .app {
-//   border: 2px solid blue;
 //   background-color: $backgroundcolor;
-//   .btn {
-//     background-color: $bgcolor;
+// }
+
+// .app {
+//   background-color: $bgcolor;
+//   border: 1px solid red;
+//   button {
+//     padding: 5px;
+//     background-color: antiquewhite;
 //     border: none;
-//     color: white;
 //     &:hover {
-//       background-color: rgb(153, 101, 101);
-//       color: #020202;
+//       background-color: rgb(80, 74, 72);
+//       border-radius: 10px;
+//       color: white;
 //     }
 //   }
-//   .container{
-//     // margin: 20px;
-//     @include setitem(column, 50px , red );        // using mixins
+//   .todo {
+//     margin: 20px;
+//     @include rowItem(column, 20px, rgb(139, 106, 96));
 //   }
 // }
-
-// // sass => we use Mixins => functions
-*/
 
 // @@@@ AXIOS example
 // for installation ==> { npm i axios } is command.
@@ -581,7 +586,7 @@
 // initially (btnRef = null), after component gets mounted, same reference is getting after component mounted in useEffect.
 // here we passed btnRef to increment button, so it will get same reference as in null initially.
 
-// using useRef we can get reference of HTML elememts after component gets mounted.
+// using useRef, we can get reference of HTML elememts after component gets mounted.
 // by giving prop as ref={btnRef} we can get button element and its properties.
 // when component gets mounted then btn text gets updated.
 
@@ -592,10 +597,10 @@
 
 //  * const Countercontext = createContext();
 //  * then to use createContext() ==> we have
-//  * <context.Provider value={{name: "hello", age: 26}}>
+//  * <Countercontext.Provider value={{name: "hello", age: 26}}>
 //  *      <h1>App component</h1>
 //         <h3>count: {count}</h3>
-//  * <context.Provider/>  ==> now we can serve this data {name: "hello", age: 26} to children inside provider  i.e <h1>App component</h1>
+//  * <Countercontext.Provider/>  ==> now we can serve this data {name: "hello", age: 26} to children inside provider  i.e <h1>App component</h1>
 //                                                                                                                  <h3>count: {count}</h3>
 //  * To use this data into other component we use useContext(Countercontext); Hook and pass Countercontext to it.
 //  * then we can use values inside other components as in example.
@@ -687,6 +692,7 @@
 //     </div>
 //   );
 // };
+// here without passing count in provider, we can get count by setCount((p) => p - 1)
 
 //            #### useMEMO.
 
@@ -705,7 +711,8 @@
 //     </div>
 //   );
 // };
-// inside useMemo the callback will be excuted only once, if dependency array changes then it will excute again.
+// inside useMemo, the callback will be excuted only once, if dependency array changes then it will excute again.
+// useEffect callback gets excutes after mounting, useMemo callback gets excutes during mounting.
 
 // USEMEMO and MEMO is different.
 // MEMO is not a HOOK it is a function.
@@ -736,13 +743,13 @@
 
 //               #### ROUTING
 
-{
-  /* <BrowserRouter>
-  <Routes>
-    <Route path="home" element={<h2>home page</h2>} />
-  </Routes>
-</BrowserRouter>; */
-}
+// {
+//   /* <BrowserRouter>
+//   <Routes>
+//     <Route path="home" element={<h2>home page</h2>} />
+//   </Routes>
+// </BrowserRouter>; */
+// }
 
 // #### Dynamic Routing.
 
