@@ -738,32 +738,35 @@ export default App;
 //     </div>
 //   );
 // };
-// in this case without any change in value of A, component re-renders, to avoid that we use memo.
+// in this case without any change in value of a={10} , component re-renders, to avoid that we use memo.
 // when there is prop change, then A component renders otherwise, A component will not re-render.
 
 //               #### ROUTING
 
 // {
 //   /* <BrowserRouter>
-//   <Routes>
-//     <Route path="home" element={<h2>home page</h2>} />
-//   </Routes>
-// </BrowserRouter>; */
+//        <Routes>
+//           <Route path="home" element={<h2>home page</h2>} />
+//        </Routes>
+//     </BrowserRouter>; */
 // }
 
 // #### Dynamic Routing.
 
 // <Route path="product/:abc" element={<h2>product view</h2>} /> here :abc means dynamic routing, we can give any value in place of abc here.
-// useNavigator hook in router ==> we can directly give navigator(/home) it will redirect to home page.
-// useParams hook will give us the parameters like http://localhost:3000/home/:about/2431/2323 it will give 2431/2323 as id's.
+// useNavigator => hook in router ==> we can directly give navigator(/home) it will redirect to home page.
+// useParams => hook will give us the parameters like http://localhost:3000/home/:about/2431/2323 it will give 2431/2323 as id's.
 // <outlet/> ==> gives the nested routing.
 /* useLocation() hook ==> gives which route is active. we can give styling
        style={{color: location.pathname === "/user/home" ? "red" : "black"}}
+       style={{fontWeight: location.pathname === "/user/home" ? "900" : "100",}}
 */
 /* <NavLink></NavLink> is same as Link, it takes callback function and we can give style
        className={({ isActive }) => (isActive ? "active-link" : "link")}
 */
 /* LAZY LOADING: ==> takes callback as lazy(() => import("./Movies.js")) and it loads when movies component loads or when we click.
+                     when we click on movies link, then movies component is called other wise it is not called.
+                     by using lazy loading, seperate chunk file is created and that component is loaded.
             <Route
               path="movies"
               element={
