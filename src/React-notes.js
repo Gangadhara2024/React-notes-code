@@ -1,5 +1,5 @@
 // ES6 => MODULES: we can reuse the variables present inside one module(js file) into another module(js file).
-// <script type="module" src="./num.js"></script> => if type="module" is specified then only we should use exports and imports.
+// <script type="module" src="./num.js"></script> => if type="module" is specified, then only we should use exports and imports.
 
 // In a module => we can export and import javascript variables.
 // we export variables to use them anywhere.
@@ -43,7 +43,7 @@
 
 // #### JSX
 // XML: (<tag> code </tag>) is XML structure.
-// JSX:  XML like code written inside javascript file is called XML or (JSX) javacsript XML.
+// JSX:  XML like code written inside javascript file is called XML o (JSX) javacsript XML.
 
 // const para = (
 //   <p>
