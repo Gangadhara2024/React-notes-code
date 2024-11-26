@@ -20,7 +20,8 @@
  */
 //  ***##@@@ RENDERING means placing inside the UI.
 
-// DOM elements:
+// DOM elements: are objects in the DOM tree that represent the HTML elements in a web page.
+// EX ==> <h1>Hello</h1> is the DOM element.
 
 // const bold = document.createElement("b");
 // bold.className = "app";
@@ -43,7 +44,7 @@
 
 // #### JSX
 // XML: (<tag> code </tag>) is XML structure.
-// JSX:  XML like code written inside javascript file is called XML o (JSX) javacsript XML.
+// JSX:  XML like code written inside javascript file is called XML or (JSX) javacsript XML.
 
 // const para = (
 //   <p>
@@ -70,16 +71,43 @@
 // for every list items we should pass prop `KEY`.
 
 /*
-   RDOM (Real DOM): This is the actual Document Object Model, the representation of the UI, that the browser renders on the screen. The Real DOM is slower to update because it involves interacting directly with the browser, which is why React uses the VDOM to minimize direct updates to the Real DOM.
-
-   VDOM (Virtual DOM): This is an in-memory representation of the actual DOM. React uses the VDOM to keep track of changes in the UI. When you update the UI, React updates the VDOM first, then compares it with the previous version using a process called "reconciliation." This allows React to efficiently update only the parts of the actual DOM (Real DOM) that have changed.
-
-   1. In react, all react elements will be in Tree structure( virtual DOM => VDOM1)
-   2. when there is state(data) change, react will re-construct another virtual DOM tree with updated state(VDOM2).
-   3. React compares the old tree (VDOM1) and new tree (VDOM2), and figures out differences this algorithm is called as diffing.
-   4. after finding the differences b/w VDOM2 and RDOM, updated virtual DOM (VDOM2) will be made in sync with RDOM, this is called Reconciliation.
-   5. after Reconciliation process, VDOM1 gets deleted from memory and VDOM2 will be new VDOM1. 
+   ***   Features of RDOM (Real DOM):
+    1. The DOM organizes elements in a tree, where nodes represent elements, text, and attributes.
+       ex: ==> <div> <p>Hello World</p> </div>
+       The DOM tree would have a root <div> node, with a child <p> node, containing the text "Hello World".
+    2. Any changes to the webpage (ex: adding, deleting, modifying elements) are reflected in the Real DOM.
+    3. browser uses the Real DOM to render and display the webpage, enabling interaction with users.
+    4. You can use JavaScript to access and manipulate the Real DOM using methods like:
+       document.getElementById('id'); 
+       document.createElement('div'); 
+    5. When you manipulate the Real DOM (ex: adding or removing elements), the browser updates the tree structure.
+    6. When many updates are needed (ex: in animations or real-time apps), manipulating the Real DOM repeatedly can cause slow performance.
+    7. Even small changes might trigger a re-render of the entire page or component tree, leading to inefficiency.
+  So we use VDOM (Virtual DOM) to improve application performance.
+    
+    *** VDOM (Virtual DOM).
+    ==> Virtual DOM (VDOM) is a lightweight, in-memory representation of the real DOM used by modern JavaScript libraries and frameworks, like React, to optimize rendering and improve application performance. 
+  
+    1. When the application first loads, the VDOM is created as a virtual representation of the Real DOM.
+    2. When the application state changes (ex: button click or user interaction), the VDOM updates the virtual representation.
+    3. React uses a DIFFING algorithm to calculate the differences between the previous VDOM and the updated VDOM.
+    4. Only the differences (the parts of the UI that have changed) are identified and updated in the Real DOM. this process is called Reconciliation.
+    5. If small change is made in UI, VDOM updates only changed part, not full UI or webpage because of VDOM.
+    6. The VDOM avoids full-page re-renders by updating only the changed nodes. 
 */
+// function Counter() {
+//   const [count, setCount] = useState(0);
+//   return (
+//     <div>
+//       <p>Count: {count}</p>
+//       <button onClick={() => setCount(count + 1)}>Increment</button>
+//     </div>
+//   );
+// }
+// export default Counter;
+// React creates a Virtual DOM for the <div>, <p>, and <button> elements.
+// When setCount updates the state, React creates a new VDOM with the updated count value.
+// React compares the old VDOM and new VDOM, identifies that only the <p> node has changed, and updates it in the Real DOM.
 
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 
